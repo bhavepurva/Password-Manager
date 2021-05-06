@@ -172,4 +172,5 @@ def get_pswd():
     get_btn.place(x=250, y=330)
 
 login()
+root.resizable(False, False) 
 root.mainloop()
