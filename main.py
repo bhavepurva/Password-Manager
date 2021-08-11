@@ -3,15 +3,18 @@ import tkinter.font as font
 import pyperclip, random, string,re
 from tkinter import messagebox
 
+# main window
 root = Tk()
 root.title("Password Manager")
+
+# styling gui
 root.configure(bg="gray8")
 root.geometry("700x500")
-p1 = PhotoImage(file="lock.png")
+p1 = PhotoImage(file="lock.png") #logo
 root.iconphoto(False, p1)
-
 fontstyle = font.Font(family="Lucida Grande", size=10)
 
+# intial login validation
 def login():
     pswd = Label(root, text="Password\n?", bg="gray8", fg="gray60", font=fontstyle)
     pswd.place(x=350, y=200, anchor="center")
@@ -23,7 +26,7 @@ def login():
     sub.place(x=350, y=270, anchor="center")
 
     def validate(psd):
-        if psd == "1234":
+        if psd == "1234": #can be changed later
             generator()
             check()
             save()
@@ -34,6 +37,7 @@ def login():
         enter_pswd.place_forget()
         sub.place_forget()
 
+# generate password based on user requirement - strong, moderate and weak
 def generator():
     l1 = Label(root, text="Generate Password", bg="gray8", fg="gray50", font=fontstyle)
     l1.place(x=7, y=7)
@@ -74,6 +78,7 @@ def generator():
                       command=pyperclip.copy(result))
         copy.place(x=550, y=50)
 
+# function to check if password that user has is strong, weak or moderate
 def check():
     label_title = Label(root, text="Check strength of password ", bg="gray8", fg="gray50", font=fontstyle)
     label_title.place(x=7, y=100)
@@ -115,6 +120,7 @@ def check_pswd(pswd):
     type_label.place(x=570, y=150)
     return type_of_pswd
 
+# save user entered password
 def saving(key, pswd):
     type_of_pswd = check_pswd(pswd)
     text = "Password is " + type_of_pswd + ". Save it?"
@@ -129,6 +135,7 @@ def saving(key, pswd):
     else:
         messagebox.askretrycancel("Retry", "Password not saved!")
 
+#retrieve user'spassword based on requirement, copy password to clipboard
 def getting(key):
     state = 0
     with open("file.txt", "r") as f:
